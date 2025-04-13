@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIVYKI</title>
+</head>
+<body>
+    <div id="pierwszy"><h1 style="text-align: center; margin-top: auto; margin-bottom: auto;">TO JEST FLOAT LEFT i CLEAR: BOTH</h1></div>
+    <div id="drugi"><input type="button" value="TEST" onclick="zmienTekst()"><p id="mojParagraf">Tu będzie tekst...</p>
+    </div>
+    <div id="trzeci"></div>
+    <div id="czwarty"></div>
+    
+    <script>
+        function zmienTekst() {
+    new Promise(function(resolve, reject) {
+        if (typeof document !== "undefined") {
+            resolve(document);
+        } else {
+            reject("Brak dostępu do DOM!");
+        }
+    })
+    .then(function(doc) {
+        return new Promise(function(resolve) {
+            setTimeout(function() {
+                const paragraf = doc.querySelector("#mojParagraf");
+                resolve(paragraf);
+            }, 50); 
+        });
+    })
+    .then(function(paragraf) {
+        if (!paragraf) throw new Error("Paragraf nie istnieje!");
+
+        const tekst = ["Tekst", " został", " zmieniony", "!"]
+            .map(l => l.toUpperCase().toLowerCase())
+            .join("");
+
+        Object.defineProperty(paragraf, "tekstDocelowy", {
+            value: tekst,
+            writable: true,
+            configurable: true
+        });
+
+        setTimeout(() => {
+            paragraf.innerHTML = paragraf.tekstDocelowy;
+            console.log("Zmieniono tekst pomyślnie!");
+        }, 100);
+    })
+    .catch(function(error) {
+        console.error("Błąd podczas zmiany tekstu:", error);
+    });
+}
+    </script>
+    <style>
+        #pierwszy {
+            background-color: aquamarine;
+            width: 100%;
+            height: 20vh;
+        }
+        #drugi {
+            background-color: red;
+            width: 50%;
+            height: 70vh;
+            float: left;
+
+        }
+        #trzeci {
+            background-color: black;
+            width: 50%;
+            height: 70vh;
+            float: left;
+
+        }
+        #czwarty {
+            background-color: yellow;
+            width: 100%;
+            height: 10vh;
+            clear: both;
+        }
+    </style>
+    <div class="container">
+        <div id="pierwszy1"><h1 style="text-align: center; margin-top: auto; margin-bottom: auto;">TO JEST GRID</h1></div>
+        <div id="drugi1">TEST</div>
+        <div id="trzeci1"></div>
+        <div id="czwarty1"></div>
+    </div>
+    
+    <style>
+        .container {
+            display: grid;
+            grid-template-rows: 20vh 70vh 10vh;
+            grid-template-columns: 1fr 1fr;
+            height: 100vh; 
+        }
+    
+        #pierwszy1 {
+            background-color: aquamarine;
+            grid-column: 1 / -1; 
+        }
+        #drugi1 {
+            background-color: red;
+            grid-column: 1;
+        }
+    
+        #trzeci1 {
+            background-color: black;
+            grid-column: 2; 
+        }
+    
+        #czwarty1 {
+            background-color: yellow;
+            grid-column: 1 / -1; 
+        }
+    </style>
+    <div class="container2">
+        <div id="pierwszy2"><h1 style="text-align: center; margin-top: auto; margin-bottom: auto;">TO JEST display</h1></div>
+        <div class="pudelko">
+        <div id="drugi2">njnj</div>
+        <div id="trzeci2"></div>
+    </div>
+        <div id="czwarty2"></div>
+    </div>
+<style>
+        .container2 {  
+        height: 100vh; 
+        width: 100%;
+        display: inline-block;
+
+        }
+    
+        #pierwszy2 {
+            background-color: pink;
+            width: 100%;
+            height: 20vh;
+
+        }
+        .pudelko {
+            display: flex;
+
+        }
+        #drugi2 {
+            background-color: red;
+            width: 50%;
+            height: 70vh;
+            display: inline-block;
+
+
+        }
+    
+        #trzeci2 {
+            background-color: black;
+            width: 50%;
+            height: 70vh;
+            display: inline-block;
+
+
+
+        }
+    
+        #czwarty2 {
+            background-color: yellow;
+            width: 100%;
+            height: 10vh;
+
+        }
+
+</style>
+
+    </body>
+</html>
